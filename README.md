@@ -1,0 +1,2 @@
+# LogicLab
+Compuertas logicas 
