@@ -1,0 +1,159 @@
+classDiagram
+    class Compuerta {
+        # int x, y
+        # int ancho, alto
+        # boolean seleccionada
+        # List~Point~ puntosConexionEntrada
+        # Point puntoConexionSalida
+        + Compuerta(int x, int y, int ancho, int alto)
+        + abstract void Dibujar(Graphics g)
+        + void actualizarPuntosConexion()
+        + void setPosicion(int x, int y)
+        + boolean contiene(int px, int py)
+        + Point getPuntoConexionSalida()
+        + List~Point~ getPuntosConexionEntrada()
+        + int getX()
+        + int getY()
+        + int getAncho()
+        + int getAlto()
+        + Iterable~Conexion~ getConexionesEntrada()
+    }
+
+    class AND {
+        - Color colorRelleno
+        - Color colorContorno
+        - static final int CURVA_ANCHO
+        + AND(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        + boolean evaluarSalida()
+        + void setColorRelleno(Color color)
+        + void setColorContorno(Color color)
+    }
+
+    class OR {
+        - Color colorContorno
+        + OR(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        + boolean evaluarSalida()
+        + void setColorRelleno(Color color)
+        + void setColorContorno(Color color)
+    }
+
+    class NOT {
+        - static final Color COLOR_RELLENO
+        - static final Color COLOR_CONTORNO
+        - static final int TAMANO_CIRCULO
+        + NOT(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        - void dibujarPuntoConexion(Graphics2D g2d, int px, int py)
+        + boolean evaluarSalida()
+    }
+
+    class Switch {
+        - boolean activado
+        + Switch(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        + void cambiarEstado()
+        + boolean estaActivado()
+    }
+
+    class Xor {
+        - static final int CURVA_ANCHO
+        - Color colorRelleno
+        - Color colorContorno
+        + Xor(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        + boolean evaluarSalida()
+        + void setColorRelleno(Color color)
+        + void setColorContorno(Color color)
+    }
+
+    class LED {
+        - boolean encendido
+        - Color colorApagado
+        - Color colorEncendido
+        + LED(int x, int y)
+        + void actualizarPuntosConexion()
+        + void Dibujar(Graphics g)
+        - void dibujarPuntoConexion(Graphics2D g2d, int px, int py)
+        + boolean evaluarSalida()
+        + void setEncendido(boolean estado)
+        + boolean isEncendido()
+        + void setColorEncendido(Color color)
+    }
+
+    class Conexion {
+        - Compuerta inicio
+        - Compuerta fin
+        - int indiceEntrada
+        + Conexion(Compuerta inicio, Compuerta fin, int indiceEntrada)
+        + Point getInicio()
+        + Point getFin()
+        + boolean contiene(Point p)
+        + void Dibujar(Graphics g)
+        - double distanciaALinea(Point a, Point b, Point p)
+        + boolean getValor()
+    }
+
+    class ConexionTemporal {
+        - Compuerta inicio
+        - Point fin
+        + ConexionTemporal(Compuerta inicio, Point fin)
+        + Compuerta getCompuertaInicio()
+        + void setFin(Point fin)
+        + void Dibujar(Graphics g)
+    }
+
+    class MiPanel {
+        - ArrayList~Compuerta~ compuertas
+        - ArrayList~Conexion~ conexiones
+        - Compuerta compuertaSeleccionada
+        - ConexionTemporal conexionTemporal
+        - Compuerta compuertaPendiente
+        - int offsetX, offsetY
+        + MiPanel()
+        + void seleccionarCompuerta(Compuerta c)
+        - void manejarClickIzquierdo(MouseEvent e)
+        - void completarConexion(MouseEvent e)
+        - void eliminarCompuertaOConexion(MouseEvent e)
+        - void cambiarEstadoCompuerta(MouseEvent e)
+        - void eliminarConexionesRelacionadas(Compuerta c)
+        - double distancia(Point a, Point b)
+        + void agregarCompuerta(Compuerta c)
+        + void evaluarCircuito()
+        # void paintComponent(Graphics g)
+    }
+
+    class DibujarCompuertas {
+        - MiPanel p
+        - int yPosicion
+        + DibujarCompuertas()
+        - void initComponents()
+        - void JbANDActionPerformed(ActionEvent evt)
+        - void JbORActionPerformed(ActionEvent evt)
+        - void JbNOTActionPerformed(ActionEvent evt)
+        - void jbXORActionPerformed(ActionEvent evt)
+        - void jbLEDActionPerformed(ActionEvent evt)
+        - void jButton1ActionPerformed(ActionEvent evt)
+        - void jButton2ActionPerformed(ActionEvent evt)
+        - void jButton3ActionPerformed(ActionEvent evt)
+        + static void main(String[] args)
+    }
+
+    Compuerta <|-- AND
+    Compuerta <|-- OR
+    Compuerta <|-- NOT
+    Compuerta <|-- Switch
+    Compuerta <|-- Xor
+    Compuerta <|-- LED
+    Conexion --> Compuerta : contiene >
+    ConexionTemporal --> Compuerta : contiene >
+    MiPanel --> Compuerta : contiene >
+    MiPanel --> Conexion : contiene >
+    MiPanel --> ConexionTemporal : contiene >
+    DibujarCompuertas --> MiPanel : contiene >
