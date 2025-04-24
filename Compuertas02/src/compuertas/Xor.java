@@ -10,7 +10,7 @@ public class Xor extends Compuerta {
     public Xor(int x, int y) {
         super(x, y, 60, 40);
     }
-    
+ // Puntos de entrada de la compuerta XOR   
     @Override
     public void actualizarPuntosConexion() {
         puntosConexionEntrada.clear();
@@ -87,13 +87,15 @@ public class Xor extends Compuerta {
         g.setColor(new Color(255, 200, 200));
         g.fillOval(x - 2, y - 2, 2, 2);
     }
-    
+// Evaluacion de la compuerta XOR    
     @Override
     public boolean evaluarSalida() {
         boolean a = false, b = false;
         if (conexionesEntrada.size() >= 2) {
             a = conexionesEntrada.get(0) != null && conexionesEntrada.get(0).getValor();
             b = conexionesEntrada.get(1) != null && conexionesEntrada.get(1).getValor();
+            // SI una de las dos entradas es positiva la compuerta devuleve True
+            // SI ambos son positivcos devuleve False 
         }
         return a ^ b;
     }
