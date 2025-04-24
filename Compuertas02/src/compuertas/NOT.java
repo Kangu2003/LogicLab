@@ -17,14 +17,14 @@ public class NOT extends Compuerta {
         super(x, y, 50, 40); // solo pasamos x, y, ancho, alto
         actualizarPuntosConexion();
     }
-
+    // Puntos de conexion Not
     @Override
     public void actualizarPuntosConexion() {
         puntosConexionEntrada.clear();
         puntosConexionEntrada.add(new Point(x, y + alto / 2));
         puntoConexionSalida.setLocation(x + ancho, y + alto / 2);
     }
-
+// Dibujo de la compuerta NOT
     @Override
     public void Dibujar(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -65,7 +65,7 @@ public class NOT extends Compuerta {
 
         g2d.dispose();
     }
-
+// Metodo para dibujar compuerta not en MiPanel 
     private void dibujarPuntoConexion(Graphics2D g2d, int px, int py) {
         g2d.setColor(Color.WHITE);
         g2d.fillOval(px - 4, py - 4, 8, 8);
@@ -75,7 +75,7 @@ public class NOT extends Compuerta {
 
         g2d.fillOval(px - 2, py - 2, 4, 4);
     }
-
+// Evaluacion de la compuerta NOT
     @Override
     public boolean evaluarSalida() {
         if (conexionesEntrada.size() > 0 && conexionesEntrada.get(0) != null) {
