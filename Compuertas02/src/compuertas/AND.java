@@ -1,4 +1,6 @@
 package compuertas;
+
+
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -12,20 +14,20 @@ import java.awt.geom.Line2D;
 public class AND extends Compuerta {
     private static final int CURVA_ANCHO = 30;
     private Color colorRelleno = new Color(70, 130, 180); // Azul para AND
-    private Color colorContorno = Color.BLACK;
+    private Color colorContorno = Color.BLACK; // color del contorno 
     
     public AND(int x, int y) {
-        super(x, y, 60, 40);
+        super(x, y, 60, 40);  // Posicion inicial 
     }
     
     @Override
     public void actualizarPuntosConexion() {
         puntosConexionEntrada.clear();
-        puntosConexionEntrada.add(new Point(x, y + alto / 3));
-        puntosConexionEntrada.add(new Point(x, y + 2 * alto / 3));
-        puntoConexionSalida.setLocation(x + ancho, y + alto / 2);
+        puntosConexionEntrada.add(new Point(x, y + alto / 3)); // Punto A de entrada 
+        puntosConexionEntrada.add(new Point(x, y + 2 * alto / 3)); // Punto B de entrada
+        puntoConexionSalida.setLocation(x + ancho, y + alto / 2);  // Punto C de salida
     }
-    
+// Metodo para dibujar compuerta 
     @Override
     public void Dibujar(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -33,7 +35,7 @@ public class AND extends Compuerta {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setStroke(new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
         
-       
+       // Forma de la compuerta And
         GeneralPath forma = new GeneralPath();
         forma.moveTo(x, y);
         forma.lineTo(x + ancho / 2, y);
@@ -43,7 +45,7 @@ public class AND extends Compuerta {
         forma.closePath();
         
        
-        g2d.setColor(new Color(150, 200, 255, 180));
+        g2d.setColor(new Color(150, 200, 255, 180)); // color azul 
         g2d.fill(forma);
         
         
@@ -65,7 +67,7 @@ public class AND extends Compuerta {
         
         g2d.dispose();
     }
-    
+  // Evaluacion de la compuerta AND  
     @Override
     public boolean evaluarSalida() {
         boolean resultado = true;
