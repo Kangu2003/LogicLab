@@ -5,7 +5,6 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Line2D;
-
 import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,6 +17,8 @@ public class OR extends Compuerta {
         actualizarPuntosConexion();
     }
 
+
+// Actualizar puntos de conexion 
     @Override
     public void actualizarPuntosConexion() {
         puntosConexionEntrada.clear();
@@ -25,7 +26,7 @@ public class OR extends Compuerta {
         puntosConexionEntrada.add(new Point(x, y + 2 * alto / 3));
         puntoConexionSalida.setLocation(x + ancho, y + alto / 2);
     }
-
+// Dibujar  puntos de conexion 
     @Override
     public void Dibujar(Graphics g) {
         Graphics2D g2d = (Graphics2D) g.create();
@@ -36,28 +37,28 @@ public class OR extends Compuerta {
         // Forma de la compuerta OR
         GeneralPath forma = new GeneralPath();
 
-        forma.moveTo(x + 10, y); // Punto superior
-        forma.quadTo(x + 5, y + alto / 2, x + 10, y + alto); // Curva izquierda
-        forma.quadTo(x + ancho - 15, y + alto, x + ancho - 5, y + alto / 2); // Curva inferior derecha
-        forma.quadTo(x + ancho - 15, y, x + 10, y); // Curva superior derecha
+        forma.moveTo(x + 10, y);  // Punto superior
+        forma.quadTo(x + 5, y + alto / 2, x + 10, y + alto);  // Curva izquierda
+        forma.quadTo(x + ancho - 15, y + alto, x + ancho - 5, y + alto / 2);  // Curva inferior derecha
+        forma.quadTo(x + ancho - 15, y, x + 10, y);  // Curva superior derecha
 
-        // Relleno
-        g2d.setColor(new Color(200, 255, 200, 180)); // verde claro translúcido
+        // Relleno de la compuerta OR
+        g2d.setColor(new Color(200, 255, 200, 180)); // verde claro translúcido dentro de la compuerta
         g2d.fill(forma);
 
         // Contorno
-        g2d.setColor(seleccionada ? Color.RED : colorContorno);
+        g2d.setColor(seleccionada ? Color.RED : colorContorno); //color al seleccionar la compuerta 
         g2d.draw(forma);
 
-        // Líneas de entrada
+        // Dos líneas de entrada
         g2d.setColor(Color.BLACK);
         g2d.draw(new Line2D.Double(x - 15, y + alto / 3, x + 7, y + alto / 3));
         g2d.draw(new Line2D.Double(x - 15, y + 2 * alto / 3, x + 7, y + 2 * alto / 3));
 
-        // Línea de salida
+        // Una línea de salida
         g2d.draw(new Line2D.Double(x + ancho - 5, y + alto / 2, x + ancho + 15, y + alto / 2));
 
-        // Puntos de conexión
+        // Puntos de conexión los 3
         dibujarPuntoConexion(g2d, x, y + alto / 3);
         dibujarPuntoConexion(g2d, x, y + 2 * alto / 3);
         dibujarPuntoConexion(g2d, x + ancho, y + alto / 2);
@@ -74,15 +75,15 @@ public class OR extends Compuerta {
 
         g2d.fillOval(px - 2, py - 2, 4, 4);
     }
-
+  // Evalua el comportamiento de la compuerta OR
     @Override
     public boolean evaluarSalida() {
         for (Conexion conexion : conexionesEntrada) {
             if (conexion != null && conexion.getValor()) {
-                return true;
+                return true; // si una de las entradas es positiva devuelve true
             }
         }
-        return false;
+        return false; // si las dos entradas son negativas devuelve false
     }
 
     public void setColorContorno(Color color) {
